@@ -10,10 +10,6 @@
 
 (package-initialize)
 
-;;
-;; set theme
-;;
-(load-theme 'afternoon t) ;; add 't' at the end to auto-yes for any questions
 
 ;; Windmove
 (require 'windmove)
@@ -81,6 +77,7 @@
   :bind (("C-=" . er/expand-region))
   )
 
+
 ;;
 ;; hideshow
 ;;
@@ -93,12 +90,13 @@
 (use-package multiple-cursors
   :ensure t
   :bind (
-         ("M-3" . mc/mark-next-like-this)
-         ("M-4" . mc/mark-previous-like-this)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
          :map ctl-x-map
          ("\C-m" . mc/mark-all-dwim)
          ("<return>" . mule-keymap)
          ))
+
 
 ;;
 ;; ivy mode
@@ -111,10 +109,20 @@
   (setq ivy-use-virutal-buffers t)
   (setq enable-recursive-minibuffers t)
   (setq ivy-height 10)
+;; ;; flx-ido-mode
+;; (require 'flx-ido)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
+;; (flx-ido-mode 1)
+
+
   (setq ivy-initial-inputs-alist nil)
   (setq ivy-count-format "%d/%d")
   (setq ivy-re-builders-alist
-        `((t . ivy--regex-ignore-order)))
+      '((t . ivy--regex-fuzzy)))
+  ;; (setq ivy-re-builders-alist
+  ;;       `((t . ivy--regex-ignore-order)))
   )
 
 ;;
@@ -132,6 +140,19 @@
   :ensure t
   :bind (("C-s" . swiper))
   )
+
+
+;; Smex - enhance M-x key
+(require 'smex)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+
+;;
+;; set theme
+;;
+(load-theme 'dracula t) ;; add 't' at the end to auto-yes for any questions
+
 
 ;;
 ;; yasnippet
